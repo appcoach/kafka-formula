@@ -11,3 +11,12 @@ kafka-config:
     - mode: 644
     - user: root
     - group: root
+
+kafka-log4j-config:
+  file.managed:
+    - name: {{ kafka.log4j_config }}
+    - source: salt://kafka/files/conf/log4j.properties
+    - template: jinja
+    - mode: 644
+    - user: root
+    - group: root

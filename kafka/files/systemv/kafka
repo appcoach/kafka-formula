@@ -1,3 +1,4 @@
+{%- from "kafka/map.jinja" import kafka with context %}
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides:          kafka
@@ -24,6 +25,7 @@ DAEMON=/usr/local/lib/kafka/bin/kafka-server-start.sh
 DAEMON_ARGS="-daemon /usr/local/lib/kafka/config/server.properties"
 PIDFILE=/run/$EXEC_NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
+LOG_DIR={{ kafka.conf.log_dir }}
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
