@@ -5,15 +5,37 @@
 
 kafka:
   group.present:
+    - name: kafka
     - system: True
   user.present:
+    - name: kafka
     - fullname: kafka service
     - shell: /usr/sbin/nologin
-    - home: /var/lib/kafka
+    - home: {{ kafka.conf.log.dirs }}
     - system: True
     - gid_from_name: True
     - groups:
       - kafka
+
+{{ kafka.conf.log.dirs }}:
+    file.directory:
+    - user: kafka
+    - group: kafka
+    - mode: 755
+    - makedirs: True
+    - recurse:
+      - user
+      - group
+
+{{ kafka.conf.log_dir }}:
+    file.directory:
+    - user: kafka
+    - group: kafka
+    - mode: 755
+    - makedirs: True
+    - recurse:
+      - user
+      - group
 
 kafka-java-pkg:
   pkg.installed:
@@ -52,7 +74,7 @@ kafka-systemd:
     - user: root
     - group: root
 # todo: run "systemctl daemon-reload" after modifying the systemd files
-                  
+
 kafka-systemv:
   file.managed:
     - name: /etc/init.d/kafka
