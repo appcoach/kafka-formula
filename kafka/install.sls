@@ -3,6 +3,16 @@
 
 {% from "kafka/map.jinja" import kafka with context %}
 
+{{ kafka.conf.log.dirs }}:
+    file.directory:
+    - user: kafka
+    - group: kafka
+    - mode: 755
+    - makedirs: True
+    - recurse:
+      - user
+      - group
+
 kafka:
   group.present:
     - name: kafka
@@ -16,16 +26,6 @@ kafka:
     - gid_from_name: True
     - groups:
       - kafka
-
-{{ kafka.conf.log.dirs }}:
-    file.directory:
-    - user: kafka
-    - group: kafka
-    - mode: 755
-    - makedirs: True
-    - recurse:
-      - user
-      - group
 
 {{ kafka.conf.log_dir }}:
     file.directory:
