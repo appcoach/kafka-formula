@@ -9,9 +9,8 @@
     - group: kafka
     - mode: 755
     - makedirs: True
-    - recurse:
-      - user
-      - group
+    - require:
+      - user: kafka
 
 kafka:
   group.present:
@@ -21,7 +20,6 @@ kafka:
     - name: kafka
     - fullname: kafka service
     - shell: /usr/sbin/nologin
-    - home: {{ kafka.conf.log.dirs }}
     - system: True
     - gid_from_name: True
     - groups:
@@ -48,9 +46,10 @@ kafka-tarball:
     - source: {{ kafka.tarball.tgz.source }}
     - source_hash: {{ kafka.tarball.tgz.source_hash }}
     - archive_format: tar
-    - tar_options: z
-    - user: root
-    - group: root
+    - options: z
+    #- user: root
+    #- group: root
+    - force: True
     - if_missing: {{ kafka.real_base_dir }}
     - require:
       - pkg: kafka-java-pkg
