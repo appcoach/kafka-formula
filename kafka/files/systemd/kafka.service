@@ -13,6 +13,7 @@ Environment=KAFKA_HEAP_OPTS={{ kafka.java.heap_opts }}
 Environment=LOG_DIR={{ kafka.conf.log_dir }}
 ExecStart=/usr/local/lib/kafka/bin/kafka-server-start.sh /usr/local/lib/kafka/config/server.properties
 ExecStop=/usr/local/lib/kafka/bin/kafka-server-stop.sh
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
