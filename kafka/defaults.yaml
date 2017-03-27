@@ -67,7 +67,7 @@ kafka:
           ms: 1000
       retention:
         hours: 168
-        bytes: 1073741824
+        bytes: -1
         check:
           interval:
             ms: 300000
